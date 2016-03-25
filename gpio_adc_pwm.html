@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GPIO ADC Example</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style> 
+    </style>
+    <script src = "/socket.io/socket.io.js" > </script>
+    <script type=text/javascript src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+     <script>
+        var socket = io.connect();
+        var result;
+        
+        // OUTPUT
+        function onOutput(pin_out){       
+            socket.emit(pin_out, 'on');
+        }
+        function offOutput(pin_out){       
+            socket.emit(pin_out, 'off');
+        }
+        
+        // INPUT
+        socket.on('show_value_input', function(data) {
+            $('#value').val(data);
+        });
+        
+        function readInput(){
+            socket.emit('read_input', 'read');
+        }
+        
+        //ADC
+        socket.on('adc0-show', function(data) { $('#adc0-value').val(data); });
+        socket.on('adc1-show', function(data) { $('#adc1-value').val(data); });
+        socket.on('adc2-show', function(data) { $('#adc2-value').val(data); });
+        socket.on('adc3-show', function(data) { $('#adc3-value').val(data); });
+        socket.on('adc4-show', function(data) { $('#adc4-value').val(data); });
+        socket.on('adc5-show', function(data) { $('#adc5-value').val(data); });
+        socket.on('adc6-show', function(data) { $('#adc6-value').val(data); });
+        
+        function readADC(){
+            socket.emit('adc', 'read-adc');
+        }
+        
+        // PWM
+        function setPWM(){
+            var value = document.getElementById("pwm-value").value;
+            socket.emit('pwm', value);
+        }
+        function showPWM(pwmValue) {
+            $('#pwm-show').val(pwmValue);
+        }
+
+    </script>
+</script>
+
+
+
+</head>
+<body>
+    <!-- ON/OFF Output : visual-->
+    <form class="pure-form">
+        <fieldset>
+            <legend>RELAY</legend>   
+            <button type="button" id="relay00-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('RL00');">RL00_ON</button>
+            <button type="button" id="relay00-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('RL00');">RL00_OFF</button>     
+            <button type="button" id="relay01-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('RL01');">RL01_ON</button>
+            <button type="button" id="relay01-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('RL01');">RL01_OFF</button>    
+            <button type="button" id="relay02-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('RL02');">RL02_ON</button>
+            <button type="button" id="relay02-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('RL02');">RL02_OFF</button>    
+            <button type="button" id="relay03-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('RL03');">RL03_ON</button>
+            <button type="button" id="relay03-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('RL03');">RL03_OFF</button>    
+            <button type="button" id="relay04-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('RL04');">RL04_ON</button>
+            <button type="button" id="relay04-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('RL04');">RL04_OFF</button>    
+            <button type="button" id="relay05-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('RL05');">RL05_ON</button>
+            <button type="button" id="relay05-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('RL05');">RL05_OFF</button>    
+            <button type="button" id="relay06-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('RL06');">RL06_ON</button>
+            <button type="button" id="relay06-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('RL06');">RL06_OFF</button>    
+            <button type="button" id="relay07-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('RL07');">RL07_ON</button>
+            <button type="button" id="relay07-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('RL07');">RL07_OFF</button>    
+            <button type="button" id="relay08-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('RL08');">RL08_ON</button>
+            <button type="button" id="relay08-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('RL08');">RL08_OFF</button>    
+            <button type="button" id="relay09-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('RL09');">RL09_ON</button>
+            <button type="button" id="relay09-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('RL09');">RL09_OFF</button>    
+            <button type="button" id="relay10-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('RL10');">RL10_ON</button>
+            <button type="button" id="relay10-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('RL10');">RL10_OFF</button>    
+            <button type="button" id="relay11-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('RL11');">RL11_ON</button>
+            <button type="button" id="relay11-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('RL11');">RL11_OFF</button>    
+            <button type="button" id="relay12-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('RL12');">RL12_ON</button>
+            <button type="button" id="relay12-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('RL12');">RL12_OFF</button>    
+            <button type="button" id="relay13-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('RL13');">RL13_ON</button>
+            <button type="button" id="relay13-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('RL13');">RL13_OFF</button> 
+            
+            <legend>LED USER</legend>   
+            <button type="button" id="led-user0-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('LED_USR0');">LED0_ON</button>
+            <button type="button" id="led-user0-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('LED_USR0');">LED0_OFF</button>
+            <button type="button" id="led-user1-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('LED_USR1');">LED1_ON</button>
+            <button type="button" id="led-user1-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('LED_USR1');">LED1_OFF</button>
+            <button type="button" id="led-user2-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('LED_USR2');">LED2_ON</button>
+            <button type="button" id="led-user2-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('LED_USR2');">LED2_OFF</button>
+            <button type="button" id="led-user3-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('LED_USR3');">LED3_ON</button>
+            <button type="button" id="led-user3-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('LED_USR3');">LED3_OFF</button>
+            <button type="button" id="led-user4-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('LED_USR4');">LED4_ON</button>
+            <button type="button" id="led-user4-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('LED_USR4');">LED4_OFF</button>
+            <legend>RUN - ERROR - SOUND</legend>   
+            <button type="button" id="run-on-btn"       class="pure-button pure-button-primary" onclick ="onOutput('OUT_RUN');">RUN_ON</button>
+            <button type="button" id="run-off-btn"      class="pure-button pure-button-primary" onclick ="offOutput('OUT_RUN');">RUN_OFF</button>
+            <button type="button" id="error-on-btn"     class="pure-button pure-button-primary" onclick ="onOutput('OUT_ERROR');">ERROR_ON</button>
+            <button type="button" id="error-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('OUT_ERROR');">ERROR_OFF</button>
+            <button type="button" id="sound-btn"        class="pure-button pure-button-primary" onclick ="onOutput('OUT_SOUND');">SOUND_ON</button>
+            <button type="button" id="sound-off-btn"    class="pure-button pure-button-primary" onclick ="offOutput('OUT_SOUND');">SOUND_OFF</button>
+            
+        </fieldset>
+    </form>
+
+    <!-- Read Input -->
+    <form class="pure-form">
+        <fieldset>
+            <legend>Read Digital Input</legend>
+            <input type="text" id="value"></input>
+            <button type="button" id="btn-read" class="pure-button pure-button-primary" onclick="readInput();">READ</button>
+        </fieldset>
+    </form>
+     
+     <!-- Read ADC -->
+    <form class="pure-form">
+        <fieldset>
+            <legend>Read ADC Input</legend>
+            <input type="text" id="adc0-value"></input>
+            <input type="text" id="adc1-value"></input>
+            <input type="text" id="adc2-value"></input>
+            <input type="text" id="adc3-value"></input>
+            <input type="text" id="adc4-value"></input>
+            <input type="text" id="adc5-value"></input>
+            <input type="text" id="adc6-value"></input>
+            <button type="button" id="btn-read-adc" class="pure-button pure-button-primary" onclick="readADC();">READ ADC</button>
+        </fieldset>
+    </form>
+
+     <!-- Set duty cyle PWM -->
+    <form class="pure-form">
+        <fieldset>
+            <legend>Set PWM </legend>
+            <input type="range" id="pwm-value" min="0" max="100" step="5" onchange="showPWM(this.value);"></input>
+            <input type="text" id="pwm-show"></input>
+            <button type="button" id="btn-set-pwm" class="pure-button pure-button-primary" onclick="setPWM();">SET PWM</button>
+        </fieldset>
+    </form>
+
+
+</body>
+</html>
